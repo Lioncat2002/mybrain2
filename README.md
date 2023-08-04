@@ -1,2 +1,4 @@
 # mybrain2
-A chatGPT based android app with context based on google search history, linkedin history and instagram history
+An android search engine which searches data from google search history to find useful links
+## Demo video
+https://youtu.be/Rf5GiyIO1I4
