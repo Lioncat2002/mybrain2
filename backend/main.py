@@ -1,6 +1,7 @@
 import weaviate
 import json
 from dotenv import load_dotenv
+from fastapi import FastAPI
 import os
 load_dotenv(".env")
 client=weaviate.Client(
@@ -11,6 +12,18 @@ client=weaviate.Client(
     }
 )
 
+app=FastAPI()
+
+
+@app.get("/{query}")
+def root(query:str):
+    nearText={"concepts":[query]}
+    response=(
+        client.query.get("Result",["title","url","time"]).with_near_text(nearText).with_limit(5).do()
+    )
+    return response
+
+"""
 classobj={
     "class":"Result",
     "vectorizer":"text2vec-huggingface",
@@ -24,31 +37,29 @@ classobj={
     }
 }
 
-#client.schema.create_class(classobj)
-
-#f=open("BrowserHistory.json")
-#data=json.load(f)
-#f.close()
-#data=data["Browser History"]
-#
-#with client.batch(batch_size=100) as batch:
-#        for i,d in enumerate(data):
-#            print("importing data: ",i+1)
-#            properties={
-#                "title":d["title"],
-#                "url":d["url"],
-#                "time":d["time_usec"]
-#            }
-#            client.batch.add_data_object(
-#                properties,
-#                "Result"
-#            )
-
-nearText={"concepts":["companies"]}
 
 
+client.schema.create_class(classobj)
+f=open("BrowserHistory.json")
+data=json.load(f)
+f.close()
+data=data["Browser History"]
+
+with client.batch(batch_size=100) as batch:
+        for i,d in enumerate(data):
+            print("importing data: ",i+1)
+            properties={
+                "title":d["title"],
+                "url":d["url"],
+                "time":d["time_usec"]
+            }
+            client.batch.add_data_object(
+                properties,
+                "Result"
+            ) """
+
+""" nearText={"concepts":["games"]}
 response=(
     client.query.get("Result",["title","url","time"]).with_near_text(nearText).with_limit(5).do()
 )
-
-print(json.dumps(response,indent=4))
+print(json.dumps(response,indent=4)) """

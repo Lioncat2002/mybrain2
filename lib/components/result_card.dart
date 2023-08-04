@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
 
 class ResultCard extends StatelessWidget {
+  final String title;
+  final String url;
   const ResultCard({
     super.key,
+    required this.title,
+    required this.url,
   });
 
   @override
   Widget build(BuildContext context) {
-    return const Card(
+    return Card(
       child: SizedBox(
         width: 300,
         height: 100,
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Toiger",
-                style: TextStyle(fontSize: 20),
+                title,
+                style: const TextStyle(fontSize: 20),
               ),
-              Divider(
+              const Divider(
                 color: Colors.black, //color of divider
                 height: 1, //height spacing of divider
                 thickness: 1, //thickness of divier line
@@ -28,11 +32,11 @@ class ResultCard extends StatelessWidget {
                 endIndent: 0, //spacing at the end of divider
               ),
               Text(
-                "Lorem ipsum dolor set amet",
-                style: TextStyle(
-                  color: Color.fromARGB(255, 80, 80, 80),
-                  fontSize: 12,
-                ),
+                url,
+                style: const TextStyle(
+                    color: Color.fromARGB(255, 80, 80, 80),
+                    fontSize: 12,
+                    overflow: TextOverflow.ellipsis),
               )
             ],
           ),
